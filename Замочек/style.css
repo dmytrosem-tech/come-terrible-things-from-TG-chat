@@ -1,0 +1,253 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: hsl(143, 90%, 20%);
+  font: 16px/1.5 sans-serif;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+input {
+  position: fixed;
+  top: -1.5em;
+  left: -1.5em;
+}
+input:not(:checked):focus + .padlock,
+input:not(:checked):hover + .padlock {
+  animation: 0.5s swing ease-in-out;
+}
+input:checked + .padlock {
+  animation: fall 2s ease-in-out forwards;
+  transform-origin: 17.5em -3em;
+}
+input:checked + .padlock .padlock__top {
+  animation: unlockA 0.5s ease-in, unlockB 0.25s 0.5s ease-out forwards;
+}
+input:checked + .padlock .padlock__top-a {
+  animation: hookA 0.5s ease-in, hookB 0.25s 0.5s ease-out forwards;
+}
+input:checked + .padlock .padlock__top-b {
+  animation: boxShadowSwap 0.75s steps(1, start) forwards;
+}
+.padlock {
+  font-size: 10px;
+  position: relative;
+  width: 16em;
+  height: 20em;
+  transform-origin: 50% 2em;
+  -webkit-tap-highlight-color: #0000;
+}
+.padlock:before {
+  background: hsl(0, 0%, 70%);
+  content: '';
+  display: block;
+  top: 5.25em;
+  right: 2.375em;
+  width: 2em;
+  height: 1.5em;
+  z-index: 1;
+}
+.padlock:before,
+.padlock__top,
+.padlock__top-a,
+.padlock__top-b,
+.padlock__bottom {
+  position: absolute;
+}
+.padlock__top,
+.padlock__top-a {
+  height: 14.5em;
+  top: 0;
+}
+.padlock__top {
+  width: 11.25em;
+  right: 2.375em;
+}
+.padlock__top-a,
+.padlock__top-b {
+  left: 0;
+  width: 100%;
+}
+.padlock__top-a {
+  border-radius: 50% 50% 0 0 / 5em 5em 0 0;
+  box-shadow: 0 0 0 2em hsl(0, 0%, 70%) inset;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 12.25em,
+    2em 12.25em,
+    2em 10.25em,
+    1.25em 10.75em,
+    1.25em 11.5em,
+    2em 11.5em,
+    2em 12.25em,
+    0 12.25em
+  );
+}
+.padlock__top-b {
+  box-shadow: -2em 0 0 hsl(0, 0%, 70%) inset;
+  height: 3em;
+  top: 12em;
+}
+.padlock__bottom {
+  background: hsl(50, 90%, 55%);
+  box-shadow: 0.75em 0 0 hsl(50, 90%, 40%) inset, 2em 0 0 hsl(50, 90%, 75%) inset, -0.75em 0 0 hsl(50, 90%, 40%) inset,
+    -3em 0 0 hsl(50, 90%, 75%) inset;
+  border-radius: 0.5em;
+  width: 100%;
+  height: 10.75em;
+  top: 9.25em;
+}
+.padlock__sr {
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+}
+
+/* Animations */
+@keyframes swing {
+  from,
+  to {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+}
+@keyframes fall {
+  from,
+  37.5% {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0) rotate(-54deg);
+  }
+  62.5% {
+    opacity: 1;
+    transform: translateY(0) rotate(-42deg);
+  }
+  75%,
+  87.5% {
+    opacity: 1;
+    transform: translateY(0) rotate(-45deg);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20em) rotate(-45deg);
+  }
+}
+@keyframes unlockA {
+  from {
+    width: 11.25em;
+    transform: translateY(0);
+    animation-timing-function: ease-in-out;
+  }
+  50% {
+    width: 11.25em;
+    transform: translateY(-5em);
+    animation-timing-function: ease-in;
+  }
+  to {
+    width: 2em;
+    transform: translateY(-5em);
+  }
+}
+@keyframes unlockB {
+  from {
+    right: auto;
+    left: 11.625em;
+    width: 2em;
+    transform: translateY(-5em);
+  }
+  to {
+    right: auto;
+    left: 11.625em;
+    width: 11.25em;
+    transform: translateY(-5em);
+  }
+}
+@keyframes hookA {
+  from,
+  50% {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 12.25em,
+      2em 12.25em,
+      2em 10.25em,
+      1.25em 10.75em,
+      1.25em 11.5em,
+      2em 11.5em,
+      2em 12.25em,
+      0 12.25em
+    );
+  }
+  to {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 12.25em,
+      2em 12.25em,
+      2em 10.25em,
+      2em 10.75em,
+      2em 11.5em,
+      2em 11.5em,
+      2em 12.25em,
+      0 12.25em
+    );
+  }
+}
+@keyframes hookB {
+  from {
+    clip-path: polygon(
+      0 0,
+      2em 0,
+      2em 12.25em,
+      0 12.25em,
+      0 11.5em,
+      0 11.5em,
+      0 10.75em,
+      0 10.25em,
+      0 12.25em,
+      0 12.25em
+    );
+  }
+  to {
+    clip-path: polygon(
+      0 0,
+      11.25em 0,
+      11.25em 12.25em,
+      9.2em 12.25em,
+      9.2em 11.5em,
+      10em 11.5em,
+      10em 10.75em,
+      9.2em 10.25em,
+      9.2em 12.25em,
+      0 12.25em
+    );
+  }
+}
+@keyframes boxShadowSwap {
+  from,
+  67% {
+    box-shadow: -2em 0 0 hsl(0, 0%, 70%) inset;
+  }
+  to {
+    box-shadow: 2em 0 0 hsl(0, 0%, 70%) inset;
+  }
+}
