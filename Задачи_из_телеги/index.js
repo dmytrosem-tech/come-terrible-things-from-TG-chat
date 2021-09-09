@@ -14,6 +14,3 @@
 // console.log(Object.getOwnPropertyNames(shedule))
 // console.log(Object.keys(shedule))
 // console.log(shedule)
-
-// const o = {}
-// console.log(Object.getOwnPropertyNames(o))
